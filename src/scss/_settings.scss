@@ -35,6 +35,10 @@ textarea {
   resize: none;
 }
 
+abbr[title] {
+  text-decoration: none;
+}
+
 .page {
   height: 100%;
   font-family: var(--font-family-base);
@@ -73,12 +77,19 @@ textarea {
   border: none;
   border-radius: 0;
   background-color: #fff;
+  margin: 0;
 
   &::-webkit-search-decoration,
   &::-webkit-search-cancel-button,
   &::-webkit-search-results-button,
-  &::-webkit-search-results-decoration {
+  &::-webkit-search-results-decoration,
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
     display: none;
+  }
+
+  &[type="number"] {
+    -moz-appearance: textfield;
   }
 }
 
@@ -94,6 +105,7 @@ textarea {
 }
 
 .skiplink {
+  display: block;
   position: absolute;
   top: -200px;
   left: 15px;
@@ -115,12 +127,6 @@ textarea {
 
 .js-focus-visible :focus:not(.focus-visible) {
   outline: none;
-}
-
-.grid {
-  display: grid;
-  grid-template-rows: repeat(12, 1fr);
-  gap: var(--gap);
 }
 
 .overlay {
@@ -161,4 +167,34 @@ textarea {
   background: linear-gradient(90deg, rgb(158, 63, 58) 36%, rgb(52, 17, 142));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  width: 80px;
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-dark);
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translate3d(0, 0, 0);
+  scale: 0.6;
+  opacity: 0;
+  transition: opacity var(--transition-duration) ease-out, scale 0.6s ease-out;
+
+  svg {
+    width: 20px;
+    aspect-ratio: 1;
+    fill: var(--color-light);
+  }
+
+  &--active {
+    opacity: 1;
+    scale: 1;
+  }
 }
